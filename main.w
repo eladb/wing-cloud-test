@@ -2,10 +2,11 @@ bring cloud;
 bring http;
 
 let api = new cloud.Api();
-api.post("/greet/:name", inflight (req) => {
+
+api.get("/greet/:name", inflight (req) => {
   let name = req.vars.get("name");
   let var message = "Hello, {name}!";
-  if let _ = req.query.tryGet("all-caps") {
+  if let _ = req.query.tryGet("caps") {
     message = message.uppercase();
   }
   return {
@@ -14,14 +15,14 @@ api.post("/greet/:name", inflight (req) => {
   };
 });
 
-test "POST /greet/:name" {
-  let res = http.post("{api.url}/greet/world", body: "Hello, world!");
+test "GET /greet/:name" {
+  let res = http.get("{api.url}/greet/world", body: "Hello, world!");
   assert(res.status == 200);
   assert(res.body == "Hello, world!");
 }
 
-test "POST /greet/:name?all-caps" {
-  let res = http.post("{api.url}/greet/world?all-caps", body: "Hello, world!");
+test "GET /greet/:name?caps" {
+  let res = http.get("{api.url}/greet/world?caps", body: "Hello, world!");
   assert(res.status == 200);
   assert(res.body == "HELLO, WORLD!");
 }
