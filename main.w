@@ -19,6 +19,10 @@ api.post("/greet/:name", inflight (req) => {
   };
 });
 
+api.get("/sandy", inflight () => {
+  return { body: "hello, sandy!" };
+});
+
 test "POST /greet/:name" {
   let res = http.post("{api.url}/greet/world", body: "Hello, world!");
   assert(res.status == 200);
