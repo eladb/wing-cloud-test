@@ -7,7 +7,7 @@ api.get("/", inflight () => {
   return { body: "hello!" };
 });
 
-api.get("/greet/:name", inflight (req) => {
+api.post("/greet/:name", inflight (req) => {
   let name = req.vars.get("name");
   let var message = "Hello, {name}!";
   if let _ = req.query.tryGet("caps") {
@@ -19,14 +19,14 @@ api.get("/greet/:name", inflight (req) => {
   };
 });
 
-test "GET /greet/:name" {
-  let res = http.get("{api.url}/greet/world", body: "Hello, world!");
+test "POST /greet/:name" {
+  let res = http.post("{api.url}/greet/world", body: "Hello, world!");
   assert(res.status == 200);
   assert(res.body == "Hello, world!");
 }
 
-test "GET /greet/:name?caps" {
-  let res = http.get("{api.url}/greet/world?caps", body: "Hello, world!");
+test "POST /greet/:name?caps" {
+  let res = http.post("{api.url}/greet/world?caps", body: "Hello, world!");
   assert(res.status == 200);
   assert(res.body == "HELLO, WORLD!");
 }
