@@ -3,6 +3,10 @@ bring http;
 
 let api = new cloud.Api();
 
+api.get("/", inflight () => {
+  return { body: "hello!" };
+});
+
 api.get("/greet/:name", inflight (req) => {
   let name = req.vars.get("name");
   let var message = "Hello, {name}!";
