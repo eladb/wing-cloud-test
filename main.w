@@ -1,5 +1,6 @@
 bring cloud;
 bring http;
+bring containers;
 
 let api = new cloud.Api();
 
@@ -30,3 +31,12 @@ test "POST /greet/:name?caps" {
   assert(res.status == 200);
   assert(res.body == "HELLO, WORLD!");
 }
+
+let workload = new containers.Workload(
+  name: "my-app",
+  image: "./my-app",
+  port: 3000,
+  public: true
+);
+
+new cloud.Endpoint(workload.publicUrl!);
