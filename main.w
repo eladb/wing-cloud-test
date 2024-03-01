@@ -8,6 +8,10 @@ api.get("/", inflight () => {
   return { body: "hello!" };
 });
 
+api.get("/dune", inflight () => {
+  return { body: "where is RAZ" };
+});
+
 api.post("/greet/:name", inflight (req) => {
   let name = req.vars.get("name");
   let var message = "Hello, {name}!";
